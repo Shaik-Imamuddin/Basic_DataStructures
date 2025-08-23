@@ -29,8 +29,9 @@ class Linkedlist:
 ll=Linkedlist()
 val=0
 
-while(val!=-1):
+while True:
     val=int(input())
-    if(val!=-1):
-        ll.insertatend(val)
+    if(val==-1):
+        break
+    ll.insertatend(val)
 ll.display()
