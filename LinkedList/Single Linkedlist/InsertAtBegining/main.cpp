@@ -1,73 +1,67 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-class Node {
+//Node Creation
+class Node{
 public:
     int data;
-    Node* prev;
-    Node* next;
-    Node(int data) {
-        this->data = data;
-        prev = nullptr;
-        next = nullptr;
+    Node *addr;
+    Node(int val){
+        data = val;
+        addr = nullptr;
     }
 };
 
-class DoublyLinkedList {
+
+class Linkeslist{
 private:
-    Node* head;
+    Node *head;
 public:
-    DoublyLinkedList() {
+    Linkeslist(){
         head = nullptr;
     }
 
-    void insertAtBeginning(int val) {
-        Node* newNode = new Node(val);
-        newNode->next = head;
-        if (head != nullptr)
-            head->prev = newNode;
-        head = newNode;
+    //insert data at beginning
+    void insertAtBegining(int val){
+        Node *newNode = new Node(val);
+        newNode->addr = head;
+        head=newNode;
     }
 
-    void displayForward() {
-        if (head == nullptr) {
-            cout << "List is Empty\n";
-            return;
+    //display the data 
+    void display(){
+        Node *temp = head;
+        while(temp!=nullptr){
+            cout<<temp->data<<" ";
+            temp = temp->addr;
         }
-        Node* temp = head;
-        while (temp != nullptr) {
-            cout << temp->data << " ";
-            temp = temp->next;
-        }
-        cout << "\n";
     }
 
-    void displayBackward() {
-        if (head == nullptr) {
-            cout << "List is Empty\n";
-            return;
-        }
-        Node* temp = head;
-        while (temp->next != nullptr)
-            temp = temp->next;
-        while (temp != nullptr) {
-            cout << temp->data << " ";
-            temp = temp->prev;
-        }
-        cout << "\n";
+    //de-allocating the memory
+    ~Linkeslist(){
+        Node *temp;
+        while (head!=nullptr){
+            temp=head;
+            head=head->addr;
+            delete temp;
+        } 
     }
 };
 
-int main() {
-    DoublyLinkedList dll;
-    int val;
-    do {
-        cin >> val;
-        if (val != -1)
-            dll.insertAtBeginning(val);
-    } while (val != -1);
+int main(){
 
-    dll.displayForward();
-    dll.displayBackward();
+    Linkeslist ll;
+    int val;
+
+    //Enter values to insert
+    //-1 to stop
+    do{
+        cin>>val;
+        if(val!=-1){
+            ll.insertAtBegining(val);
+        }
+    }while(val!=-1);
+
+    ll.display();
     return 0;
 }
