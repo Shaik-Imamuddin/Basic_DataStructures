@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
 
-//Node Creation
 class Node{
 public:
     int data;
@@ -12,7 +11,6 @@ public:
     }
 };
 
-
 class Linkeslist{
 private:
     Node *head;
@@ -21,14 +19,12 @@ public:
         head = nullptr;
     }
 
-    //insert data at beginning
     void insertAtBegining(int val){
         Node *newNode = new Node(val);
         newNode->addr = head;
         head=newNode;
     }
 
-    //display the data 
     void display(){
         Node *temp = head;
         while(temp!=nullptr){
@@ -37,7 +33,6 @@ public:
         }
     }
 
-    //de-allocating the memory
     ~Linkeslist(){
         Node *temp;
         while (head!=nullptr){
@@ -49,12 +44,9 @@ public:
 };
 
 int main(){
-
     Linkeslist ll;
     int val;
 
-    //Enter values to insert
-    //-1 to stop
     do{
         cin>>val;
         if(val!=-1){
