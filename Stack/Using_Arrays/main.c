@@ -1,64 +1,54 @@
 #include <stdio.h>
-#include <stdbool.h>
-
 #define SIZE 100
 
-typedef struct{
-    int arr[SIZE];
-    int top;
-}Stack;
+int stack[SIZE];
+int top=-1;
 
-void push(Stack *s, int value) {
-    if (s->top >= SIZE - 1) {
-        printf("Stack Overflow !.%d\n", value);
+void push(int val){
+    if(top==SIZE-1){
+        printf("Stack Overflow!\n");
         return;
     }
-    s->arr[++(s->top)] = value;
+    stack[++top]=val;
 }
 
-void pop(Stack *s) {
-    if (s->top < 0) {
+void pop(){
+    if(top==-1){
         printf("Stack Underflow!\n");
         return;
     }
-    s->top--;
+    printf("%d\n",stack[top--]);
 }
 
-int peek(Stack *s) {
-    if (s->top < 0) {
-        printf("Stack is empty!\n");
-        return -1;
-    }
-    return s->arr[s->top];
-}
-
-void display(Stack *s) {
-    if (s->top < 0) {
+void peek(){
+    if(top==-1){
         printf("Stack is empty!\n");
         return;
     }
-    for (int i = s->top; i >= 0; i--) {
-        printf("%d ", s->arr[i]);
+    printf("Top element: %d\n",stack[top]);
+}
+
+void display(){
+    if(top==-1){
+        printf("Stack is empty!\n");
+        return;
     }
+    for(int i=top;i>=0;i--)
+        printf("%d ",stack[i]);
     printf("\n");
 }
 
-int main() {
-    Stack s;
-    s.top = -1;   
+int main(){
     int val;
+    do{
+        scanf("%d",&val);
+        if(val!=-1)
+            push(val);
+    }while(val!=-1);
 
-    while (true) {
-        scanf("%d", &val);
-        if (val == -1)
-            break;
-        push(&s, val);
-    }
-
-    display(&s);
-    pop(&s);
-    display(&s);
-
-    printf("Top element: %d\n", peek(&s));
+    display();
+    pop();
+    peek();
+    display();
     return 0;
 }
