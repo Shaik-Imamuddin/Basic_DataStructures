@@ -34,26 +34,6 @@ public:
         }
     }
 
-    void deleteFromEnd(){
-        if(head == nullptr){
-            cout<<"LinkedList is Empty Can't delete";
-            return;
-        }
-        if(head->addr == nullptr){
-            delete head;
-            head = nullptr;
-            return;
-        }
-
-        Node *temp = head;
-        while (temp->addr->addr != nullptr){
-            temp=temp->addr;
-        }
-        
-        delete temp->addr;
-        temp->addr = nullptr;
-    }
-
     void display(){
         Node *temp = head;
         while (temp!=nullptr){
@@ -82,7 +62,6 @@ int main(){
         if(val!=-1)
             ll.insertatend(val);
     }while(val!=-1);
-    ll.deleteFromEnd();
     ll.display();
     return 0;
 }
