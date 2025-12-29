@@ -1,81 +1,86 @@
 #include<stdio.h>
-#define MAX 100
+#include<stdlib.h>
 
-int list[MAX];
-int size = 0;
+struct Node{
+    int data;
+    struct Node *addr;
+};
 
+struct Node *front = NULL;
+struct Node *rear = NULL;
 
-void insert(int pos,int val){
-    if(size==MAX){
-        printf("List is full");
-        return;
+void enqueue(int val){
+    struct Node *newNode  = (struct Node*)malloc(sizeof(struct Node));
+
+    newNode->data = val;
+
+    if(front==NULL){
+        front=rear=newNode;
+        newNode->addr=front;
     }
-
-    if(pos<0 || pos>size){
-        printf("Invalid Position");
-        return;
+    else{
+        rear->addr = newNode;
+        rear = newNode;
+        rear->addr = front;
     }
-
-    for(int i=size;i>pos;i--){
-        list[i]=list[i-1];
-    }
-    list[pos]=val;
-    size++;
 }
 
-void delete(int pos){
-    if(size==0){
-        printf("List is Empty");
+void dequeue(){
+    if(front==NULL){
+        printf("Queue underflow");
         return;
     }
 
-    if(pos<0 || pos>=size){
-        printf("Invalid Position");
-        return;
+    if(front==rear){
+        printf("%d",front->data);
+        free(front);
+        front=rear=NULL;
     }
 
-    for(int i=pos;i<size;i++){
-        list[i]=list[i+1];
+    else{
+        struct Node *temp=front;
+        printf("%d\n",temp->data);
+        front = front->addr;
+        rear->addr = front;
+        free(temp);
     }
-    size--;
 }
 
-int get(int pos){
-    if(pos<0 || pos>=size){
-        printf("Invalid Position");
-        return -1;
+void peek(){
+    if(front==NULL){
+        printf("Queue is Empty");
+        return;
     }
-    return list[pos];
+    printf("Front Element: %d\n",front->data);
 }
 
 void display(){
-    if(size==0){
-        printf("List is Empty");
+    if(front==NULL){
+        printf("Queue is Empty");
         return;
     }
 
-    for(int i=0;i<size;i++){
-        printf("%d ",list[i]);
-    }
+    struct Node *temp = front;
+    do{
+        printf("%d ",temp->data);
+        temp = temp->addr;
+    }while(temp!=front);
     printf("\n");
 }
 
-int main(){
 
-    int pos,val;
-    
+int main(){
+    int val;
+
     do{
-        scanf("%d %d",&pos,&val);
-        if(pos!=-1 && val!=-1)
-            insert(pos,val);
-    }while(pos!=-1 && val!=-1);
+        scanf("%d",&val);
+        if(val!=-1)
+            enqueue(val);
+    }while(val!=-1);
 
     display();
-
-    int d_pos;
-    scanf("%d",&d_pos);
-    delete(d_pos);
-    printf("%d\n",get(d_pos));
+    dequeue();
+    peek();
     display();
     return 0;
 }
