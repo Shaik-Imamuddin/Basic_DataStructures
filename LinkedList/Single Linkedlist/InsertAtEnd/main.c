@@ -10,6 +10,12 @@ struct Node *head= NULL;
 
 void insertatend(int val){
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+
+    if(newNode==NULL){
+        printf("Memory Allocation Failed");
+        return;
+    }
+
     newNode->data = val;
     newNode->addr =NULL;
 
