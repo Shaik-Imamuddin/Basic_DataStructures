@@ -16,6 +16,7 @@ class Stack:
         if self.top==None:
             print("Stack Underflow!")
             return
+        
         print(self.top.data)
         self.top=self.top.addr
 
@@ -23,13 +24,16 @@ class Stack:
         if self.top==None:
             print("Stack is empty!")
             return
+        
         print("Top element:",self.top.data)
 
     def display(self):
         if self.top==None:
             print("Stack is empty!")
             return
+        
         temp=self.top
+        
         while temp!=None:
             print(temp.data,end=" ")
             temp=temp.addr
