@@ -1,53 +1,63 @@
+
 class Node:
     def __init__(self, val):
         self.data = val
         self.addr = None
 
-front = None
-rear = None
+class Queue:
+    def __init__(self):
+        self.front = None
+        self.rear = None
 
-def enqueue(val):
-    global front, rear
-    newNode = Node(val)
-    if rear is None:
-        front = rear = newNode
-    else:
-        rear.addr = newNode
-        rear = newNode
+    def enqueue(self, val):
+        newNode = Node(val)
 
-def dequeue():
-    global front, rear
-    if front is None:
-        print("Queue Underflow!")
-        return
-    print(front.data)
-    front = front.addr
-    if front is None:
-        rear = None
+        if self.rear is None:
+            self.front = self.rear = newNode
+        else:
+            self.rear.addr = newNode
+            self.rear = newNode
 
-def peek():
-    if front is None:
-        print("Queue is empty!")
-        return
-    print("Front element:", front.data)
+    def dequeue(self):
+        if self.front is None:
+            print("Queue Underflow!")
+            return
 
-def display():
-    if front is None:
-        print("Queue is empty!")
-        return
-    temp = front
-    while temp is not None:
-        print(temp.data, end=" ")
-        temp = temp.addr
-    print()
+        print(self.front.data)
+        self.front = self.front.addr
+
+        if self.front is None:
+            self.rear = None
+
+    def peek(self):
+        if self.front is None:
+            print("Queue is empty!")
+            return
+
+        print("Front element:", self.front.data)
+
+    def display(self):
+        if self.front is None:
+            print("Queue is empty!")
+            return
+
+        temp = self.front
+
+        while temp is not None:
+            print(temp.data, end=" ")
+            temp = temp.addr
+        print()
+
+
+q = Queue()
 
 while True:
     val = int(input())
     if val == -1:
         break
-    enqueue(val)
+    q.enqueue(val)
 
-display()
-dequeue()
-peek()
-display()
+q.display()
+q.dequeue()
+q.peek()
+q.display()
